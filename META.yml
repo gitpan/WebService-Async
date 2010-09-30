@@ -1,0 +1,47 @@
+---
+abstract: 'Non-blocking interface to web service APIs'
+author:
+  - 'keroyonn <keroyon@cpan.org>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 1.00'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: WebService-Async
+no_index:
+  directory:
+    - examples
+    - inc
+    - t
+    - xt
+requires:
+  AnyEvent: 0
+  AnyEvent::HTTP: 0
+  Carp: 0
+  Class::MOP: 0
+  Clone: 0
+  Data::UUID: 0
+  Encode: 0
+  Hash::MultiKey: 0
+  JSON: 0
+  Log::Dispatch::Config: 0
+  Moose: 0
+  Moose::Role: 0
+  Moose::Util::TypeConstraints: 0
+  MooseX::WithCache: 0
+  Regexp::Common: 0
+  Scalar::Util: 0
+  Smart::Args;: 0
+  URI::Escape: 0
+  XML::Simple: 0
+  perl: 5.8.8
+resources:
+  homepage: http://github.com/keroyonn/p5-WebService-Async/tree
+  license: http://dev.perl.org/licenses/
+  repository: git://github.com/keroyonn/p5-WebService-Async.git
+version: 0.01
