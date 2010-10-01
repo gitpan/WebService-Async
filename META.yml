@@ -4,6 +4,7 @@ author:
   - 'keroyonn <keroyon@cpan.org>'
 build_requires:
   ExtUtils::MakeMaker: 6.42
+  Smart::Args;: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -19,6 +20,8 @@ no_index:
     - inc
     - t
     - xt
+recommends:
+  Log::Dispatch::Configurator::YAML: 0
 requires:
   AnyEvent: 0
   AnyEvent::HTTP: 0
@@ -36,7 +39,6 @@ requires:
   MooseX::WithCache: 0
   Regexp::Common: 0
   Scalar::Util: 0
-  Smart::Args;: 0
   URI::Escape: 0
   XML::Simple: 0
   perl: 5.8.8
@@ -44,4 +46,4 @@ resources:
   homepage: http://github.com/keroyonn/p5-WebService-Async/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/keroyonn/p5-WebService-Async.git
-version: 0.01
+version: 0.02

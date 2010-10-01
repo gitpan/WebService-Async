@@ -22,20 +22,22 @@ requires 'Moose::Util::TypeConstraints';
 requires 'MooseX::WithCache';
 requires 'Regexp::Common';
 requires 'Scalar::Util';
-requires 'Smart::Args;';
 requires 'URI::Escape';
 requires 'XML::Simple';
 
-build_requires 'Plack';
+build_requires 'Test::More';
 build_requires 'Test::Deep';
 build_requires 'Test::Exception';
 build_requires 'Test::TCP';
 build_requires 'UNIVERSAL';
+build_requires 'Plack';
+build_requires 'Smart::Args;';
+
+recommends 'Log::Dispatch::Configurator::YAML';
 
 tests 't/*.t';
 author_tests 'xt';
 
-build_requires 'Test::More';
 auto_set_repository;
 auto_include;
 WriteAll;

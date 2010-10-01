@@ -1,4 +1,7 @@
 Revision history for Perl extension WebService::Async
 
+0.02    Fri Aug 30 09:25:09 2010
+        - fixed Makefile.pl. adds build_required 'Smart::Args'
+
 0.01    Wed Sep 30 21:47:09 2010
         - original version
