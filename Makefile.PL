@@ -16,6 +16,7 @@ requires 'Encode';
 requires 'Hash::MultiKey';
 requires 'JSON';
 requires 'Log::Dispatch::Config';
+requires 'Smart::Args';
 requires 'Moose';
 requires 'Moose::Role';
 requires 'Moose::Util::TypeConstraints';
@@ -31,7 +32,6 @@ build_requires 'Test::Exception';
 build_requires 'Test::TCP';
 build_requires 'UNIVERSAL';
 build_requires 'Plack';
-build_requires 'Smart::Args;';
 
 recommends 'Log::Dispatch::Configurator::YAML';
 

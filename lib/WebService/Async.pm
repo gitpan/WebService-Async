@@ -3,7 +3,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 
 use 5.008008;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use constant MAX_MAX_PER_HOST        => 6;
 use constant DEFAULT_MAX_PER_HOST    => 4;

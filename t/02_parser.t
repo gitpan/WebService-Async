@@ -10,9 +10,7 @@ use WebService::Async::Parser::JSON;
 use WebService::Async::Parser::XMLSimple;
 
 sub create_client {
-    args my $class, my $response => 'Any',
-      my $parser    => 'Object',
-      my $test_name => 'Str';
+    my ($response, $parser, $test_name) = @_;
     return sub {
         my $port = shift;
         my $wa   = WebService::Async->new(
@@ -43,20 +41,20 @@ sub create_server {
 
 # JSON
 test_tcp(
-    client => __PACKAGE__->create_client(
-        parser    => WebService::Async::Parser::JSON->new,
-        response  => { key1 => 'value1', key2 => 'value2' },
-        test_name => 'WebService::Async::Parser::JSON',
+    client => create_client(
+        { key1 => 'value1', key2 => 'value2' },
+        WebService::Async::Parser::JSON->new,
+        'WebService::Async::Parser::JSON',
     ),
     server => create_server('{ "key1": "value1", "key2": "value2" }'),
 );
 
 # XML
 test_tcp(
-    client => __PACKAGE__->create_client(
-        parser    => WebService::Async::Parser::XMLSimple->new,
-        response  => { key1 => 'value1', key2 => 'value2' },
-        test_name => 'WebService::Async::Parser::XMLSimple',
+    client => create_client(
+        { key1 => 'value1', key2 => 'value2' },
+        WebService::Async::Parser::XMLSimple->new,
+        'WebService::Async::Parser::XMLSimple',
     ),
     server => create_server('<root><key1>value1</key1><key2>value2</key2></root>'),
 );
