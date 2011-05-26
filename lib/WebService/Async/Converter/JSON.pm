@@ -18,7 +18,9 @@ sub _build_converter {
 }
 
 sub convert {
-    args my $self, my $parsed_response => 'HashRef|ArrayRef';
+    args my $self, my $parsed_response => 'HashRef|ArrayRef',
+      my $request => 'WebService::Async::Request',
+      my $async   => 'WebService::Async';
     return $self->converter->encode($parsed_response);
 }
 

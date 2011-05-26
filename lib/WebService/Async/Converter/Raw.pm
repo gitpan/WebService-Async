@@ -11,7 +11,9 @@ use Clone;
 sub _build_converter { }
 
 sub convert {
-    args my $self, my $parsed_response => 'Object|HashRef|ArrayRef|Str';
+    args my $self, my $parsed_response => 'Object|HashRef|ArrayRef|Str',
+      my $request => 'WebService::Async::Request',
+      my $async   => 'WebService::Async';
     return Clone::clone($parsed_response);
 }
 

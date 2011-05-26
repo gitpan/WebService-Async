@@ -46,4 +46,4 @@ resources:
   homepage: http://github.com/keroyonn/p5-WebService-Async/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/keroyonn/p5-WebService-Async.git
-version: 0.03
+version: 0.04

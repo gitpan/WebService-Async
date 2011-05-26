@@ -1,10 +1,14 @@
 Revision history for Perl extension WebService::Async
 
+0.04    Thu May 26 21:50:00 2011
+        - fix resouce leak bugs
+        - support for new version of Smart::Args
+
 0.03    Sat Oct 2 09:19:09 2010
-        - fixed Makefiile.pl
+        - fix Makefiile.pl
 
 0.02    Fri Sep 30 09:25:09 2010
-        - fixed Makefile.pl. adds build_required 'Smart::Args'
+        - fix Makefile.pl. adds build_required 'Smart::Args'
 
 0.01    Wed Sep 30 21:47:09 2010
         - original version

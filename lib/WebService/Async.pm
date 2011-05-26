@@ -3,7 +3,7 @@ use Moose;
 use Moose::Util::TypeConstraints;
 
 use 5.008008;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use constant MAX_MAX_PER_HOST        => 6;
 use constant DEFAULT_MAX_PER_HOST    => 4;
@@ -667,7 +667,6 @@ q{All the request is successfully completed. Execute 'on_complete' callback.}
                         );
                         return;
                     }
-                    weaken $timer;
                     $timer ||= AE::timer $self->retry_interval, 0,
                       $send_request;
                     return;    # skip later process
@@ -715,7 +714,6 @@ q{All the request is successfully completed. Execute 'on_complete' callback.}
 "Invoking http_request method ${retry} (method=${method} url=${url})."
             );
 
-            weaken $guard;
             $guard ||= http_request $method, $url,
               headers => {
                 Accept       => '*/*',
@@ -735,9 +733,8 @@ q{All the request is successfully completed. Execute 'on_complete' callback.}
               },
               on_body => $on_body;
         };    # end of $send_request
-
-        weaken $timer;
-        $timer ||= AE::timer 0, 0, $send_request;
+        $send_request->();
+        weaken $send_request;
     }
 }
 1;

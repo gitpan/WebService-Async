@@ -92,16 +92,16 @@ EXAMPLES
           param    => { v => '1.0', langpair => 'en|it' },
           response_parser => WebService::Async::Parser::JSON->new,
       );
-  
-      # USING THE AUTOMATIC GENERATED KEY
+      
+  # USING THE AUTOMATIC GENERATED KEY
       my $apple_key  = $wa->add_get( q => 'apple' );
       my $orange_key = $wa->add_get( q => 'orange' );
       my $grape_key  = $wa->add_get( q => 'grape' );
       my $ret = $wa->send_request;
       # blocking here automatically and sending 3 asynchronous requests.
       print $ret->get($orange_key)->{responseData}->{translatedText} . "\n";
-  
-      # USING YOUR OWN SPECIFIED KEY
+      
+  # USING YOUR OWN SPECIFIED KEY
       $wa->add_get(id => 1, param => { q => 'pear' });
       $wa->add_get(id => 2, param => { q => 'banana'});
       $wa->add_get(id => 3, lang => 'fr', param => { q => 'cherry', langpair => 'en|fr' });
@@ -149,8 +149,8 @@ EXAMPLES
           lang  => 'fr',
           param => { q => 'grape', langpair => 'en|fr' }
       );
-  
-      $wa->send_request;
+      
+  $wa->send_request;
       # blocking here automatically and sending 3 asynchronous requests.
 
    RESULTS
@@ -180,8 +180,8 @@ EXAMPLES
           on_complete     => \&on_complete,
           auto_block      => 0, # change block mode to manual
       );
-  
-      sub on_complete {
+      
+  sub on_complete {
           my ( $async, $result ) = @_;
           print "on_complete\n";
           for my $key ( $result->keys ) {
@@ -190,8 +190,8 @@ EXAMPLES
           }
           $cv->send;
       }
-  
-      $wa->add_get( id => 1, param => { q => 'apple' } );
+      
+  $wa->add_get( id => 1, param => { q => 'apple' } );
       $wa->add_get( id => 2, param => { q => 'orange' } );
       $wa->add_get( id => 3, param => { q => 'grape' } );
       $wa->send_request;
@@ -211,23 +211,23 @@ EXAMPLES
       use WebService::Async;
       use WebService::Async::Parser::JSON;
       use FindBin qw($Bin);
-  
-      use Log::Dispatch::Config;
+      
+  use Log::Dispatch::Config;
       use Log::Dispatch::Configurator::YAML;
       my $configure =
         Log::Dispatch::Configurator::YAML->new("${Bin}/log_config.yaml");
       Log::Dispatch::Config->configure($configure);
       my $logger = Log::Dispatch::Config->instance;
-  
-      my $wa = WebService::Async->new(
+      
+  my $wa = WebService::Async->new(
           base_url => 'http://ajax.googleapis.com/ajax/services/language/translate',
           param    => { v => '1.0', langpair => 'en|it' },
           response_parser => WebService::Async::Parser::JSON->new,
           on_complete     => \&on_complete,
           logger          => $logger,
       );
-  
-      sub on_complete {
+      
+  sub on_complete {
           my ( $async, $result ) = @_;
           print "on_complete\n";
           for my $key ( $result->keys ) {
@@ -235,8 +235,8 @@ EXAMPLES
               print "  key(@{${key}}): value(${text})\n";
           }
       }
-  
-      $wa->add_get( id => 1, param => { q => 'apple' } );
+      
+  $wa->add_get( id => 1, param => { q => 'apple' } );
       $wa->add_get( id => 2, param => { q => 'orange' } );
       $wa->add_get( id => 3, param => { q => 'grape' } );
       $wa->send_request;
@@ -278,8 +278,8 @@ EXAMPLES
       [Tue Sep 28 15:48:51 2010] [debug] The request is successfully completed. Clear the busy flag. at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
       [Tue Sep 28 15:48:51 2010] [debug] The request is successfully completed. Clear all parsed responses. at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
       [Tue Sep 28 15:48:51 2010] [info] All the request is successfully completed. Execute 'on_complete' callback. at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
-  
-      on_complete
+      
+  on_complete
         key(id 2): value(arancione)
         key(id 3): value(uva)
         key(id 1): value(mela)
@@ -294,8 +294,8 @@ EXAMPLES
       use WebService::Async::Parser::JSON;
       use WebService::Async::Converter::XMLSimple;
       use WebService::Async::Converter::Function;
-  
-      my $wa = WebService::Async->new(
+      
+  my $wa = WebService::Async->new(
           base_url => 'http://ajax.googleapis.com/ajax/services/language/translate',
           param    => { v => '1.0', langpair => 'en|it' },
           response_parser => WebService::Async::Parser::JSON->new,
@@ -304,12 +304,12 @@ EXAMPLES
               print "${result}\n";
           },
       );
-  
-      # It is useless because you can not relate the request to the response.
+      
+  # It is useless because you can not relate the request to the response.
       # See the "Expected results below".
       $wa->response_converter( WebService::Async::Converter::XMLSimple->new );
-  
-      # You can customize the response by using a custom function.
+      
+  # You can customize the response by using a custom function.
       $wa->whole_response_converter(
           WebService::Async::Converter::Function->new( converter => \&_converter ) );
       sub _converter {
@@ -318,15 +318,15 @@ EXAMPLES
             render_mt( 'whole_template', $parsed_response )->as_string;
           return $converted_reponse;
       }
-  
-      # translating
+      
+  # translating
       $wa->add_get( id => 1, lang => 'fr', param => { q => 'apple', langpair => 'en|fr' } );
       $wa->add_get( id => 2, lang => 'it', param => { q => 'orange' } );
       $wa->add_get( id => 3, lang => 'it', param => { q => 'grape' } );
       my $result = $wa->send_request;
       print "${result}\n";
-  
-      __DATA__
+      
+  __DATA__
       @@ whole_template
       <results>
       ? for my $key ($_[0]->keys_as_hash) {
@@ -346,8 +346,8 @@ EXAMPLES
         <responseDetails></responseDetails>
         <responseStatus>200</responseStatus>
       </result>
-  
-      <?xml version="1.0" encoding="UTF-8"?>
+      
+  <?xml version="1.0" encoding="UTF-8"?>
       <result>
         <responseData>
           <translatedText>uva</translatedText>
@@ -355,8 +355,8 @@ EXAMPLES
         <responseDetails></responseDetails>
         <responseStatus>200</responseStatus>
       </result>
-  
-      <?xml version="1.0" encoding="UTF-8"?>
+      
+  <?xml version="1.0" encoding="UTF-8"?>
       <result>
         <responseData>
           <translatedText>arancione</translatedText>
@@ -365,8 +365,8 @@ EXAMPLES
         <responseStatus>200</responseStatus>
       </result>
       ---
-  
-      --- Output from send_request
+      
+  --- Output from send_request
       --- Relating the request to the resposne by using the key.
       <results>
           <translated id="3" lang="it">uva</translated>
@@ -385,16 +385,16 @@ EXAMPLES
       use WebService::Async;
       use WebService::Async::Parser::JSON;
       use WebService::Async::ResponseCache;
-  
-      use FindBin qw($Bin);
+      
+  use FindBin qw($Bin);
       use Log::Dispatch::Config;
       use Log::Dispatch::Configurator::YAML;
       my $configure =
         Log::Dispatch::Configurator::YAML->new("${Bin}/log_config.yaml");
       Log::Dispatch::Config->configure($configure);
       my $logger = Log::Dispatch::Config->instance;
-  
-      my $wa = WebService::Async->new(
+      
+  my $wa = WebService::Async->new(
           base_url => 'http://ajax.googleapis.com/ajax/services/language/translate',
           param    => {
               v        => '1.0',
@@ -427,8 +427,8 @@ EXAMPLES
       [Wed Sep 29 10:23:25 2010] [info] Does not hit any caches: http://ajax.googleapis.com/ajax/services/language/translate?q=apple&v=1.0&langpair=en%7Cfr at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
       [Wed Sep 29 10:23:25 2010] [debug] Cache set at: http://ajax.googleapis.com/ajax/services/language/translate?q=apple&v=1.0&langpair=en%7Cfr at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
       [Wed Sep 29 10:23:27 2010] [debug] Cache set at: http://ajax.googleapis.com/ajax/services/language/translate?q=banana&v=1.0&langpair=en%7Cfr at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
-  
-      -- Second time execution: retrieving from caches.
+      
+  -- Second time execution: retrieving from caches.
       [Wed Sep 29 10:12:52 2010] [info] Cache hit: http://ajax.googleapis.com/ajax/services/language/translate?q=banana&v=1.0&langpair=en%7Cfr?q=banana&v=1.0&langpair=en%7Cfr at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
       [Wed Sep 29 10:12:52 2010] [info] Cache hit: http://ajax.googleapis.com/ajax/services/language/translate?q=apple&v=1.0&langpair=en%7Cfr?q=apple&v=1.0&langpair=en%7Cfr at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 111
 
@@ -449,8 +449,8 @@ EXAMPLES
       );
       $wa->add_get( q  => 'apple' );
       $wa->add_get( id => 1, param => { q => 'banana' } );
-  
-      # The requst key is duplicate.
+      
+  # The requst key is duplicate.
       try {
           $wa->add_get( id => 1, param => { q => 'banana' } );
       }
@@ -458,24 +458,24 @@ EXAMPLES
           warn $_;
       };
       $wa->send_request;
-  
-      # Cannot change the 'auto_block' attribute while the request queue is processing.
+      
+  # Cannot change the 'auto_block' attribute while the request queue is processing.
       try {
           $wa->auto_block(1);
       }
       catch {
           warn $_;
       };
-  
-      # Cannnot send the another request while the request queue is processing.
+      
+  # Cannnot send the another request while the request queue is processing.
       try {
           $wa->send_request;
       }
       catch {
           warn $_;
       };
-  
-      # If the status code of the response header is /^2/,
+      
+  # If the status code of the response header is /^2/,
       # throws "HTTP connection error occurred. The status code is '%s'." exception.
 
    RESULTS
@@ -485,16 +485,16 @@ EXAMPLES
           main::__ANON__() called at /opt/perl/lib/site_perl/5.10.0/Try/Tiny.pm line 76
           eval {...} called at /opt/perl/lib/site_perl/5.10.0/Try/Tiny.pm line 67
           Try::Tiny::try('CODE(0xa08ebd0)', 'Try::Tiny::Catch=REF(0xa4fce78)') called at examples/example9.pl line 27
-  
-      Cannot change the 'auto_block' attribute while the request queue is processing. at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 43
+      
+  Cannot change the 'auto_block' attribute while the request queue is processing. at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 43
           Class::MOP::Class:::before('WebService::Async=HASH(0xa086778)', 1) called at /opt/perl/lib/site_perl/5.10.0/i686-linux-thread-multi/Class/MOP/Method/Wrapped.pm line 47
           Class::MOP::Method::Wrapped::__ANON__('WebService::Async=HASH(0xa086778)', 1) called at /opt/perl/lib/site_perl/5.10.0/i686-linux-thread-multi/Class/MOP/Method/Wrapped.pm line 89
           WebService::Async::auto_block('WebService::Async=HASH(0xa086778)', 1) called at examples/example9.pl line 32
           main::__ANON__() called at /opt/perl/lib/site_perl/5.10.0/Try/Tiny.pm line 76
           eval {...} called at /opt/perl/lib/site_perl/5.10.0/Try/Tiny.pm line 67
           Try::Tiny::try('CODE(0xa51a330)', 'Try::Tiny::Catch=REF(0xa53dab0)') called at examples/example9.pl line 36
-  
-      Cannot send the another request while the request queue is processing. at /opt/perl/lib/site_perl/5.10.0/WebService/Async/Role/RequestProcessor.pm line 221
+      
+  Cannot send the another request while the request queue is processing. at /opt/perl/lib/site_perl/5.10.0/WebService/Async/Role/RequestProcessor.pm line 221
           WebService::Async::Role::RequestProcessor::_process_request_queue('WebService::Async=HASH(0xa086778)') called at /opt/perl/lib/site_perl/5.10.0/WebService/Async.pm line 93
           WebService::Async::send_request('WebService::Async=HASH(0xa086778)') called at examples/example9.pl line 40
           main::__ANON__() called at /opt/perl/lib/site_perl/5.10.0/Try/Tiny.pm line 76
@@ -512,22 +512,22 @@ EXAMPLES
       package Translation;
       use Moose;
       extends 'Tatsumaki::Handler';
-  
-      use Tatsumaki::Application;
+      
+  use Tatsumaki::Application;
       use Encode qw(decode_utf8);
       use WebService::Async::Google::TranslateV1_0;
-  
-      __PACKAGE__->asynchronous(1);
-  
-      sub get {
+      
+  __PACKAGE__->asynchronous(1);
+      
+  sub get {
           translate(@_);
       }
-  
-      sub post {
+      
+  sub post {
           translate(@_);
       }
-  
-      sub translate {
+      
+  sub translate {
           my ( $self, $arg ) = shift;
           $self->response->content_type('text/xml');
           my $req    = $self->request;
@@ -536,8 +536,8 @@ EXAMPLES
           $params->remove('f');
           my $dest = $params->get('t');
           $params->remove('t');
-  
-          if ( !defined $src || !defined $dest ) {
+      
+      if ( !defined $src || !defined $dest ) {
               # TODO throws an exception.
           }
           my @dest = split '\|', $dest;
@@ -564,8 +564,8 @@ EXAMPLES
               },
           );
       }
-  
-      my $app = Tatsumaki::Application->new( [
+      
+  my $app = Tatsumaki::Application->new( [
             '/translation/api/get' => 'Translation'
             ] );
       return $app;
